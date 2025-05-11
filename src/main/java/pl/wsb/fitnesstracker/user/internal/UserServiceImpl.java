@@ -32,6 +32,19 @@ class UserServiceImpl implements UserService, UserProvider {
     }
 
     @Override
+    public Optional<User> deleteUser(final Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
+        if (userRepository.existsById(userId)) {
+            userRepository.deleteById(userId);
+            return null;
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public Optional<User> getUserByEmail(final String email) {
         return userRepository.findByEmail(email);
     }

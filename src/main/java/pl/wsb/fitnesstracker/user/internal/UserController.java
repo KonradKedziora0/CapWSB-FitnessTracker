@@ -1,7 +1,11 @@
 package pl.wsb.fitnesstracker.user.internal;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.wsb.fitnesstracker.user.api.User;
+import pl.wsb.fitnesstracker.user.api.UserNotFoundException;
 
 import java.util.List;
 
@@ -22,12 +26,34 @@ class UserController {
                 .toList();
     }
 
+    @GetMapping("/simple")
+    public List<UserSimpleDto> getAllUsersSimple() {
+        return userService.findAllUsers()
+                .stream()
+                .map(userMapper::toDtoSimple)
+                .toList();
+    }
+
+    @GetMapping("/{userId}")
+    public UserDto getUser(@PathVariable Long userId) {
+        return userService.getUser(userId)
+                .map(userMapper::toDto)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+    }
+
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public UserDto addUser(@RequestBody UserDto userDto) throws InterruptedException {
+        User user = userMapper.toEntity(userDto);
+        userService.createUser(user);
 
-        // TODO: Implement the method to add a new user.
-        //  You can use the @RequestBody annotation to map the request body to the UserDto object.
+        return null;
+    }
 
+    @DeleteMapping("/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public UserDto deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
 
         return null;
     }

@@ -30,4 +30,12 @@ public interface UserProvider {
      */
     List<User> findAllUsers();
 
+    /**
+     * Deletes the user.
+     * If the user has no ID, then an {@link IllegalArgumentException} will be thrown.
+     *
+     * @param userId The user id to be deleted
+     */
+    Optional<User> deleteUser(Long userId);
+
 }
