@@ -6,7 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.wsb.fitnesstracker.user.api.User;
 import pl.wsb.fitnesstracker.user.api.UserNotFoundException;
+import pl.wsb.fitnesstracker.user.api.UserDto;
+import org.springframework.http.ResponseEntity;
 
+
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -58,4 +62,23 @@ class UserController {
         return null;
     }
 
+    @GetMapping("/email")
+    public List<UserDto> getUserByEmail(@RequestParam String email) {
+        return userService.getUserByEmail(email)
+                .map(user -> List.of(userMapper.toDto(user)))
+                .orElse(List.of());
+    }
+
+    @PutMapping("/{userId}")
+    public ResponseEntity<Void> updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
+        userService.updateUser(userId, userDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/older/{date}")
+    public List<UserDto> getUsersOlderThan(@PathVariable LocalDate date) {
+        return userService.findUsersBornBefore(date).stream()
+                .map(userMapper::toDto)
+                .toList();
+    }
 }

@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import pl.wsb.fitnesstracker.user.api.User;
 import pl.wsb.fitnesstracker.user.api.UserProvider;
 import pl.wsb.fitnesstracker.user.api.UserService;
+import pl.wsb.fitnesstracker.user.api.UserDto;
 
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +55,26 @@ class UserServiceImpl implements UserService, UserProvider {
     @Override
     public List<User> findAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public void updateUser(Long userId, UserDto userDto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
+
+        user.setFirstName(userDto.firstName());
+        user.setLastName(userDto.lastName());
+        user.setBirthdate(userDto.birthdate());
+        user.setEmail(userDto.email());
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findUsersBornBefore(LocalDate date) {
+        return userRepository.findAll().stream()
+                .filter(user -> user.getBirthdate().isBefore(date))
+                .toList();
     }
 
 }
