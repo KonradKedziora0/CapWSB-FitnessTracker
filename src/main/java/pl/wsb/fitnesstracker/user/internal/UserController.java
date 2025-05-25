@@ -49,9 +49,9 @@ class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public UserDto addUser(@RequestBody UserDto userDto) throws InterruptedException {
         User user = userMapper.toEntity(userDto);
-        userService.createUser(user);
+        User createdUser = userService.createUser(user);
 
-        return null;
+        return  userMapper.toDto(createdUser);
     }
 
     @DeleteMapping("/{userId}")
