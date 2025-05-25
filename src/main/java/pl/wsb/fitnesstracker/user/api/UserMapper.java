@@ -1,14 +1,13 @@
-package pl.wsb.fitnesstracker.user.internal;
+package pl.wsb.fitnesstracker.user.api;
 
 import org.springframework.stereotype.Component;
-import pl.wsb.fitnesstracker.user.api.User;
-import pl.wsb.fitnesstracker.user.api.UserDto;
+import pl.wsb.fitnesstracker.user.api.*;
 
 
 @Component
-class UserMapper {
+public class UserMapper {
 
-    UserDto toDto(User user) {
+    public UserDto toDto(User user) {
         return new UserDto(user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
@@ -16,13 +15,13 @@ class UserMapper {
                 user.getEmail());
     }
 
-    UserSimpleDto toDtoSimple(User user) {
+    public UserSimpleDto toDtoSimple(User user) {
         return new UserSimpleDto(user.getId(),
                 user.getFirstName(),
                 user.getLastName());
     }
 
-    User toEntity(UserDto userDto) {
+    public User toEntity(UserDto userDto) {
         return new User(
                 userDto.firstName(),
                 userDto.lastName(),

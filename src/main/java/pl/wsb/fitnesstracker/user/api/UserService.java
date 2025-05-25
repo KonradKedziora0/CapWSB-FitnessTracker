@@ -15,5 +15,5 @@ public interface UserService {
     Optional<User> deleteUser(Long userId);
     void updateUser(Long userId, UserDto userDto);
     List<User> findUsersBornBefore(LocalDate date);
-
+    Optional<User> getUser(Long userId);
 }
