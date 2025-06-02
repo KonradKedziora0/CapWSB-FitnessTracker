@@ -21,9 +21,9 @@ Stworzone API powinno pozwalać na:
 - [ ] wyszukiwanie wszystkich treningów
 - [ ] wyszukiwanie treningów dla określonego Użytkownika:
 - [ ] wyszukiwanie wszystkich treningów zakończonych (po konkretnej zdefiniowanej dacie)
-- [ ] wyszukiwanie wszystkich treningów dla konkretnej aktywności (np. wszystkie treningi biegowe)
+- [X] wyszukiwanie wszystkich treningów dla konkretnej aktywności (np. wszystkie treningi biegowe)
 - [X] utworzenie nowego treningu
-- [ ] aktualizacja treningu (dowolnie wybrane pole np. dystans)
+- [X] aktualizacja treningu (dowolnie wybrane pole np. dystans)
 
 ### Wymagania techniczne
 
@@ -34,11 +34,11 @@ Stworzone API powinno pozwalać na:
 - [ ] rozwiązanie powinno spełniać zasady SOLID
 - [ ] testy integracyjne powinny poprawnie się wykonywać TrainingApiIntegrationTest
 - [ ] (OPCJONALNIE) rozwiązanie powinno być pokryte testami jednostkowymi (>80%)
-- [ ] rozwiązanie powinno być odpowiednio zhermetyzowane (nie udostępniać funkcjonalności pozostałym pakietom programu)
-- [ ] kod powinien być odpowiednio udokumentowany za pomocą JavaDoc
+- [X] rozwiązanie powinno być odpowiednio zhermetyzowane (nie udostępniać funkcjonalności pozostałym pakietom programu)
+- [X] kod powinien być odpowiednio udokumentowany za pomocą JavaDoc
 - [ ] do kodu powinna zostać dołączona wyeksportowana kolekcja zapytań z programu Postman, pozwalająca przetestować
   stworzone API
-- [ ] rozwiązanie powinno wykorzystywać zwykłe klasy Javowe do definicji obiektów transferu danych (DTO)
+- [X] rozwiązanie powinno wykorzystywać zwykłe klasy Javowe do definicji obiektów transferu danych (DTO)
 
 ## ZADANIE 2. API sieciowe do generowania raportów treningowych (OCENA: 5.0)
 

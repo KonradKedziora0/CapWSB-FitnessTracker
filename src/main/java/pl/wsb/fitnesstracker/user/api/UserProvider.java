@@ -1,5 +1,6 @@
 package pl.wsb.fitnesstracker.user.api;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,11 +32,11 @@ public interface UserProvider {
     List<User> findAllUsers();
 
     /**
-     * Deletes the user.
-     * If the user has no ID, then an {@link IllegalArgumentException} will be thrown.
+     * Finds users born before a specified date.
      *
-     * @param userId The user id to be deleted
+     * @param date The date to compare against
+     * @return A list of users born before the specified date
      */
-    Optional<User> deleteUser(Long userId);
+    List<User> findUsersBornBefore(LocalDate date);
 
 }

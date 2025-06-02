@@ -1,6 +1,12 @@
 package pl.wsb.fitnesstracker.training.internal;
 
-// TODO : JavaDoc
+import lombok.Getter;
+
+/**
+ * Enum representing different types of activities in a training session.
+ * Each activity type has a display name for user-friendly representation.
+ */
+@Getter
 public enum ActivityType {
 
     RUNNING("Running"),
@@ -13,10 +19,6 @@ public enum ActivityType {
 
     ActivityType(String displayName) {
         this.displayName = displayName;
-    }
-
-    public String getDisplayName() {
-        return displayName;
     }
 
 }

@@ -1,19 +1,20 @@
 package pl.wsb.fitnesstracker.training.api;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import pl.wsb.fitnesstracker.training.internal.ActivityType;
 import pl.wsb.fitnesstracker.user.api.User;
 
 import java.util.Date;
 
+/**
+ * Represents a training session in the fitness tracker application.
+ * Contains details such as user, start time, end time, activity type, distance, and average speed.
+ */
 @Entity
 @Table(name = "trainings")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class Training {
 
@@ -25,19 +26,24 @@ public class Training {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Setter
     @Column(name = "start_time", nullable = false)
     private Date startTime;
 
+    @Setter
     @Column(name = "end_time", nullable = false)
     private Date endTime;
 
+    @Setter
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "activity_type", nullable = false)
     private ActivityType activityType;
 
+    @Setter
     @Column(name = "distance")
     private double distance;
 
+    @Setter
     @Column(name = "average_speed")
     private double averageSpeed;
 

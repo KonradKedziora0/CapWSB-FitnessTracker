@@ -2,17 +2,18 @@ package pl.wsb.fitnesstracker.user.api;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a user in the fitness tracker system.
+ * Contains personal details such as first name, last name, birthdate, and email.
+ */
 @Entity
 @Table(name = "users")
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class User {
 
@@ -21,15 +22,19 @@ public class User {
     @Nullable
     private Long id;
 
+    @Setter
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @Setter
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Setter
     @Column(name = "birthdate", nullable = false)
     private LocalDate birthdate;
 
+    @Setter
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -45,17 +50,5 @@ public class User {
         this.email = email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    public void setBirthdate(LocalDate birthdate) {
-        this.birthdate = birthdate;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
 
