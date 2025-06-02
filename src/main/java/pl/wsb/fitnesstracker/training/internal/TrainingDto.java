@@ -9,7 +9,7 @@ import java.util.Date;
 
 public record TrainingDto (
         @Nullable Long id,
-        UserDto user,
+        @Nullable Long userId,
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
         Date startTime,
         @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")

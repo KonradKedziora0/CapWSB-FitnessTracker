@@ -9,10 +9,10 @@ import pl.wsb.fitnesstracker.user.api.UserDto;
 @Component
 class TrainingMapper {
 
-    TrainingDto toDto(Training training, UserDto userDto) {
+    TrainingDto toDto(Training training) {
         return new TrainingDto(
                 training.getId(),
-                userDto,
+                training.getUser().getId(),
                 training.getStartTime(),
                 training.getEndTime(),
                 training.getActivityType(),

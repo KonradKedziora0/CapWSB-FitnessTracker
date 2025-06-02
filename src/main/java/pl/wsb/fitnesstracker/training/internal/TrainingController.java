@@ -8,7 +8,7 @@ import pl.wsb.fitnesstracker.training.api.Training;
 import pl.wsb.fitnesstracker.user.api.*;
 
 @RestController
-@RequestMapping("/v1/training")
+@RequestMapping("/v1/trainings")
 @RequiredArgsConstructor
 class TrainingController {
 
@@ -19,11 +19,10 @@ class TrainingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TrainingDto addTraining(@RequestBody TrainingDto trainingDto, @RequestParam Long userId) {
-        User user = userService.getUser(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
+    public Training addTraining(@RequestBody TrainingDto trainingDto) {
+        User user = userService.getUser(trainingDto.userId())
+                .orElseThrow(() -> new UserNotFoundException(trainingDto.userId()));
         Training training = trainingMapper.toEntity(trainingDto, user);
-        Training createdTraining = trainingService.createTraining(training);
-        return trainingMapper.toDto(createdTraining, userMapper.toDto(user));
+        return trainingService.createTraining(training);
     }
 }
