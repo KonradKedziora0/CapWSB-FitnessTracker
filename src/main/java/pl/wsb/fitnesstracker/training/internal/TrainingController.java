@@ -1,6 +1,7 @@
 package pl.wsb.fitnesstracker.training.internal;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import pl.wsb.fitnesstracker.training.api.Training;
@@ -8,6 +9,8 @@ import pl.wsb.fitnesstracker.training.api.TrainingNotFoundException;
 import pl.wsb.fitnesstracker.training.api.TrainingProvider;
 import pl.wsb.fitnesstracker.training.api.TrainingService;
 import pl.wsb.fitnesstracker.user.api.*;
+
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -92,4 +95,47 @@ class TrainingController {
                 })
                 .toList();
     }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<TrainingWithUserDto> getAllTrainings() {
+        List<Training> trainings = trainingProvider.findAllTrainings();
+        return trainings.stream()
+                .map(training -> {
+                    User user = userProvider.getUser(training.getUser().getId())
+                            .orElseThrow(() -> new UserNotFoundException(training.getUser().getId()));
+                    UserDto userDto = userMapper.toDto(user);
+                    return new TrainingWithUserDto(trainingMapper.toDto(training), userDto);
+                })
+                .toList();
+    }
+
+    @GetMapping("/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TrainingWithUserDto> getTrainingsByUserId(@PathVariable Long userId) {
+        List<Training> trainings = trainingProvider.findTrainingsByUserId(userId);
+        return trainings.stream()
+                .map(training -> {
+                    User user = userProvider.getUser(training.getUser().getId())
+                            .orElseThrow(() -> new UserNotFoundException(training.getUser().getId()));
+                    UserDto userDto = userMapper.toDto(user);
+                    return new TrainingWithUserDto(trainingMapper.toDto(training), userDto);
+                })
+                .toList();
+    }
+
+    @GetMapping("/finished/{afterTime}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TrainingWithUserDto> getFinishedTrainingsAfter(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date afterTime) {
+        List<Training> trainings = trainingProvider.findFinishedTrainingsAfter(afterTime);
+        return trainings.stream()
+                .map(training -> {
+                    User user = userProvider.getUser(training.getUser().getId())
+                            .orElseThrow(() -> new UserNotFoundException(training.getUser().getId()));
+                    UserDto userDto = userMapper.toDto(user);
+                    return new TrainingWithUserDto(trainingMapper.toDto(training), userDto);
+                })
+                .toList();
+    }
+
 }

@@ -3,6 +3,7 @@ package pl.wsb.fitnesstracker.training.api;
 import pl.wsb.fitnesstracker.training.internal.ActivityType;
 import pl.wsb.fitnesstracker.training.internal.TrainingDto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,4 +27,10 @@ public interface TrainingService {
      * @param trainingDto The DTO containing the updated training data
      */
     Optional<Training> updateTraining(Long trainingId, TrainingDto trainingDto);
+
+    List<Training> findAllTrainings();
+
+    List<Training> findFinishedTrainingsAfter(Date afterTime);
+
+
 }

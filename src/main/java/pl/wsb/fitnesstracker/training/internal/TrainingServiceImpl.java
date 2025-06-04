@@ -9,6 +9,7 @@ import pl.wsb.fitnesstracker.training.api.TrainingProvider;
 import pl.wsb.fitnesstracker.training.api.TrainingService;
 import pl.wsb.fitnesstracker.user.api.UserProvider;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,14 +82,8 @@ class TrainingServiceImpl implements TrainingService, TrainingProvider {
      * @return a list of Training entities associated with the user
      */
     @Override
-    public List<Training> findTrainingsByUserId(final Long userId) {
-        if (userId == null) {
-            throw new IllegalArgumentException("User ID cannot be null");
-        }
-
-        //todo
-
-        return List.of();
+    public List<Training> findTrainingsByUserId(Long userId) {
+        return trainingRepository.findAllByUser_Id(userId);
     }
 
     /**
@@ -104,5 +99,19 @@ class TrainingServiceImpl implements TrainingService, TrainingProvider {
         }
         return trainingRepository.findTrainingsByActivityType(activityType);
     }
+
+    @Override
+    public List<Training> findAllTrainings() {
+        return trainingRepository.findAll();
+    }
+
+    @Override
+    public List<Training> findFinishedTrainingsAfter(Date afterTime) {
+        if (afterTime == null) {
+            throw new IllegalArgumentException("Date cannot be null");
+        }
+        return trainingRepository.findAllByEndTimeAfter(afterTime);
+    }
+
 
 }

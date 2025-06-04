@@ -14,9 +14,7 @@ public class TrainingDto {
         @Nullable
         private final Long id;
         private final Long userId;
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
         private final Date startTime;
-        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
         private final Date endTime;
         private final ActivityType activityType;
         private final double distance;
