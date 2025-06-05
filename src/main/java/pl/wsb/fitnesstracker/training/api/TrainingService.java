@@ -28,9 +28,4 @@ public interface TrainingService {
      */
     Optional<Training> updateTraining(Long trainingId, TrainingDto trainingDto);
 
-    List<Training> findAllTrainings();
-
-    List<Training> findFinishedTrainingsAfter(Date afterTime);
-
-
 }

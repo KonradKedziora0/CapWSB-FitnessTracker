@@ -73,7 +73,7 @@ class TrainingController {
     /**
      * Retrieves trainings for  a specific activity type.
      *
-     * @param activityType
+     * @param activityType the type of activity to filter trainings
      * @return a list of TrainingWithUserDto containing training details and associated user information
      */
     @GetMapping("/activityType")
@@ -96,6 +96,11 @@ class TrainingController {
                 .toList();
     }
 
+    /**
+     * Retrieves all trainings.
+     *
+     * @return a list of TrainingWithUserDto containing training details and associated user information
+     */
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<TrainingWithUserDto> getAllTrainings() {
@@ -110,6 +115,13 @@ class TrainingController {
                 .toList();
     }
 
+
+    /**
+     * Retrieves trainings for a specific user by their ID.
+     *
+     * @param userId the ID of the user whose trainings are to be retrieved
+     * @return a list of TrainingWithUserDto containing training details and associated user information
+     */
     @GetMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public List<TrainingWithUserDto> getTrainingsByUserId(@PathVariable Long userId) {
@@ -124,6 +136,12 @@ class TrainingController {
                 .toList();
     }
 
+    /**
+     * Retrieves trainings that are finished after a specified time.
+     *
+     * @param afterTime the time after which the trainings should be finished
+     * @return a list of TrainingWithUserDto containing training details and associated user information
+     */
     @GetMapping("/finished/{afterTime}")
     @ResponseStatus(HttpStatus.OK)
     public List<TrainingWithUserDto> getFinishedTrainingsAfter(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date afterTime) {
@@ -137,5 +155,4 @@ class TrainingController {
                 })
                 .toList();
     }
-
 }

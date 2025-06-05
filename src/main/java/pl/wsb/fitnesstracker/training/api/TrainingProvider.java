@@ -34,8 +34,19 @@ public interface TrainingProvider {
      */
     List<Training> findTrainingsByActivityType(ActivityType activityType);
 
+    /**
+     * Retrieves all trainings.
+     *
+     * @return A list of all trainings
+     */
     List<Training> findAllTrainings();
 
+    /**
+     * Retrieves all trainings that are finished after the specified time.
+     *
+     * @param afterTime The time after which the trainings should be finished
+     * @return A list of trainings that are finished after the specified time
+     */
     List<Training> findFinishedTrainingsAfter(Date afterTime);
 
 }

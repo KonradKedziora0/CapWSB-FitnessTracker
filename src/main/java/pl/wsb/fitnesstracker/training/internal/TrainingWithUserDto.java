@@ -6,6 +6,11 @@ import pl.wsb.fitnesstracker.user.api.UserDto;
 
 import java.util.Date;
 
+/**
+ * Data Transfer Object for Training with associated User.
+ * Represents a training session with details such as start time, end time, activity type, distance, average speed,
+ * and the user who performed the training.
+ */
 @Getter
 public class TrainingWithUserDto extends TrainingDto {
     private final UserDto user;

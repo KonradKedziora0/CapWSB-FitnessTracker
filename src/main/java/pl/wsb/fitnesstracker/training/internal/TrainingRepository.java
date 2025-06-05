@@ -15,8 +15,12 @@ interface TrainingRepository extends JpaRepository<Training, Long> {
      * @return A list of all trainings
      */
     default List<Training> findTrainingsByUserId(Long userId) {
-        // todo implement this method
-        return List.of();
+        if (userId != null) {
+            return findAll().stream()
+                    .filter(training -> training.getUser() != null && training.getUser().getId().equals(userId))
+                    .toList();
+        }
+        throw new IllegalArgumentException("User ID cannot be null");
     }
 
     /**
@@ -31,8 +35,19 @@ interface TrainingRepository extends JpaRepository<Training, Long> {
                 .toList();
     }
 
-    List<Training> findAllByUser_Id(Long userId);
-
-    List<Training> findAllByEndTimeAfter(Date afterTime);
+    /**
+     * Query searching all trainings finished after the specified time.
+     *
+     * @param afterTime The time after which the trainings should be finished
+     * @return A list of trainings that are finished after the specified time
+     */
+    default List<Training> findAllByEndTimeAfter(Date afterTime) {
+        if (afterTime != null) {
+            return findAll().stream()
+                    .filter(training -> training.getEndTime() != null && training.getEndTime().after(afterTime))
+                    .toList();
+        }
+        throw new IllegalArgumentException("Date cannot be null");
+    };
 
 }

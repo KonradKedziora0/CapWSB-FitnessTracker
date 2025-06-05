@@ -83,7 +83,7 @@ class TrainingServiceImpl implements TrainingService, TrainingProvider {
      */
     @Override
     public List<Training> findTrainingsByUserId(Long userId) {
-        return trainingRepository.findAllByUser_Id(userId);
+        return trainingRepository.findTrainingsByUserId(userId);
     }
 
     /**
@@ -100,11 +100,22 @@ class TrainingServiceImpl implements TrainingService, TrainingProvider {
         return trainingRepository.findTrainingsByActivityType(activityType);
     }
 
+    /**
+     * Retrieves all trainings.
+     *
+     * @return a list of all Training entities
+     */
     @Override
     public List<Training> findAllTrainings() {
         return trainingRepository.findAll();
     }
 
+    /**
+     * Finds all trainings that are finished after the specified time.
+     *
+     * @param afterTime the time after which the trainings should be finished
+     * @return a list of Training entities that are finished after the specified time
+     */
     @Override
     public List<Training> findFinishedTrainingsAfter(Date afterTime) {
         if (afterTime == null) {
